@@ -5,11 +5,21 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "tsc index.ts"
+    "build": "tsc index.ts cli.ts"
   },
-  "author": "",
-  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/yoshuro/lane.git"
+  },
+  "license": "MIT",
+  "bin": {
+    "lane": "bin/lane"
+  },
+  "dependencies": {
+    "minimist": "^1.2.0"
+  },
   "devDependencies": {
+    "@types/node": "^10.3.3",
     "typescript": "^2.9.2"
   }
 }
