@@ -11,6 +11,7 @@ function printHelp() {
   console.log('$ lane https://google.com -k search -c 5m')
   console.log('')
   console.log('Flags:')
+  console.log('-v, --version -> Returns installed version')
   console.log('-k, --keywords -> Comma separated list of keywords')
   console.log('-c --continuous -> Interval between calls (can be entered as a number in ms or like `1h`, `5m`)')
   console.log('Without -c flag it will check the site only once')
