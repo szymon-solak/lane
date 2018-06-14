@@ -6,6 +6,7 @@ import pipe from './lib/pipe'
 import crawl from './lib/crawl'
 import cleanUpContent from './lib/cleanUpContent'
 import findMatches from './lib/findMatches'
+import notify from './lib/notify'
 
 async function main(args: Config, onFound?: Function) {
   const selector = args.selector || 'body'
@@ -27,10 +28,14 @@ async function main(args: Config, onFound?: Function) {
     findMatches(keywords),
   )(content)
 
+  if (args.notify) notify(matches[0].line)
+
   // If user supplied callback function call it
   if (onFound) {
     onFound(matches)
   }
+
+  console.log(matches)
 
   return matches
 }
