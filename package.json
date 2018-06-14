@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "start": "node index.js",
-    "build": "tsc index.ts cli.ts"
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
@@ -16,6 +16,7 @@
     "lane": "bin/lane"
   },
   "dependencies": {
+    "is-url": "^1.2.4",
     "minimist": "^1.2.0"
   },
   "devDependencies": {
