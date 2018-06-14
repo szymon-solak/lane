@@ -1,0 +1,11 @@
+{
+  "compilerOptions": {
+    "module": "commonjs",
+    "removeComments": true,
+    "target": "es6"
+  },
+  "files": [
+    "index.ts",
+    "cli.ts"
+  ]
+}
