@@ -56,6 +56,7 @@ function run() {
 
   // Convert keywords to an array and remove whitespace
   const splittedKeywords = keywords
+    .toString()
     .split(',')
     .map(keyword => keyword.trim())
 
