@@ -18,3 +18,7 @@ Flags:
   - `-v, --version`: Returns installed version
   - `-k, --keywords`: Comma separated list of keywords to look for
   - `-c, --continuous`: Interval between calls (can be entered as a number in ms or like `1h`, `5m`)
+
+Config:
+
+For the sake of convenience you can specify all settings in the `config.json` file according to tempate in `config.ts` and then run the command without arguments. If you will add arguments to the command they will override config settings.

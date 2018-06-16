@@ -25,14 +25,14 @@ function printVersion() {
 function run() {
   const argv = minimist(process.argv.slice(2))
 
-  const cmd = argv._[0] || 'help'
+  const cmd = argv._[0]
 
   if (argv.version || argv.v) {
     printVersion()
     process.exit()
   }
 
-  if (!cmd || cmd.toLowerCase() === 'help') {
+  if (cmd && cmd.toLowerCase() === 'help') {
     printHelp()
     process.exit()
   }
@@ -41,7 +41,7 @@ function run() {
   // Required: url, keywords
   // We already know url exists, so only keywords are checked
 
-  const keywords: string = argv.k || argv.keywords
+  const keywords: string = argv.k || argv.keywords || config.keywords
 
   if (!keywords) {
     console.error('The argument `keywords` (-k, --keywords) is required')
@@ -49,8 +49,12 @@ function run() {
   }
 
   // Check if cmd is a valid url
-  if (!isUrl(cmd)) {
-    console.error('The first argument must be a valid url')
+  const uri = cmd
+    ? cmd
+    : config.uri
+
+  if (!isUrl(uri)) {
+    console.error('The first argument (alt. uri in config) must be a valid url')
     process.exit(1)
   }
 
@@ -62,7 +66,7 @@ function run() {
 
   // Update config with flags
   const updatedConfig = Object.assign({}, config, {
-    uri: cmd,
+    uri,
     keywords: splittedKeywords,
   })
 
