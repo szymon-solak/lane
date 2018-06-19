@@ -1,7 +1,7 @@
 import * as minimist from 'minimist'
 import * as isUrl from 'is-url'
 
-import main from './'
+import lane from './'
 
 const config = require('./config.json')
 
@@ -80,7 +80,9 @@ function run() {
   }
 
   // Everything seems ok, pass to main function
-  main(updatedConfig)
+  lane(updatedConfig)
+    .then(console.log)
+    .catch(console.error)
 }
 
 export default run

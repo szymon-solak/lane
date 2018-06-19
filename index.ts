@@ -8,7 +8,7 @@ import cleanUpContent from './lib/cleanUpContent'
 import findMatches from './lib/findMatches'
 import notify from './lib/notify'
 
-async function main(args: Config, onFound?: Function) {
+const lane = async (args: Config, onFound?: Function) => {
   const selector = args.selector || 'body'
   const keywords = args.keywords
   const spinner = ora('Fetching data..')
@@ -16,12 +16,13 @@ async function main(args: Config, onFound?: Function) {
 
   const content = await crawl(args.uri, selector)
     .catch((err) => {
-      console.error(err)
       spinner.fail('Error fetching data')
-      return ''
+      throw err
     })
 
   spinner.stop()
+
+  if (!content) return
 
   const matches = await pipe(
     cleanUpContent,
@@ -35,9 +36,7 @@ async function main(args: Config, onFound?: Function) {
     onFound(matches)
   }
 
-  console.log(matches)
-
   return matches
 }
 
-export default main
+export default lane
