@@ -1,42 +1,46 @@
-import * as ora from 'ora'
+import * as ms from 'ms'
 
+import lane from './lane'
 import { Config } from './config'
-
-import pipe from './lib/pipe'
-import crawl from './lib/crawl'
-import cleanUpContent from './lib/cleanUpContent'
-import findMatches from './lib/findMatches'
 import notify from './lib/notify'
 
-const lane = async (args: Config, onFound?: Function) => {
-  const selector = args.selector || 'body'
-  const keywords = args.keywords
-  const spinner = ora('Fetching data..')
-  spinner.start()
 
-  const content = await crawl(args.uri, selector)
-    .catch((err) => {
-      spinner.fail('Error fetching data')
-      throw err
-    })
+/*
+ * Wrapper handles running the main function
+ * in specified interval, notifying user,
+ * and cleaning up the interval afterwards.
+ */
 
-  spinner.stop()
+const wrapper = async (args: Config, onFound?: Function) =>
+  new Promise((resolve, reject) => {
+    let interval
 
-  if (!content) return
+    const runLane = () => lane(args)
+      .then((matches) => {
+        if (interval) clearInterval(interval)
 
-  const matches = await pipe(
-    cleanUpContent,
-    findMatches(keywords),
-  )(content)
+        // If user supplied callback function call it
+        if (onFound) {
+          onFound(matches)
+        }
 
-  if (args.notify) notify(matches[0].line)
+        if (args.notify) notify(matches[0].line)
 
-  // If user supplied callback function call it
-  if (onFound) {
-    onFound(matches)
-  }
+        resolve(matches)
+      })
+      .catch(reject)
 
-  return matches
-}
+    if (args.continuous) {
+      const runEvery = ms(args.runEvery)
 
-export default lane
+      interval = setInterval(
+        runLane,
+        runEvery
+      )
+    }
+
+    // Run once at start
+    runLane()
+  })
+
+export default wrapper

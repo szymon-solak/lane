@@ -19,6 +19,7 @@
   "dependencies": {
     "is-url": "^1.2.4",
     "minimist": "^1.2.0",
+    "ms": "^2.1.1",
     "node-notifier": "^5.2.1",
     "ora": "^2.1.0",
     "x-ray": "^2.3.2"
