@@ -22,3 +22,7 @@ Flags:
 Config:
 
 For the sake of convenience you can specify all settings in the `config.json` file according to tempate in `config.ts` and then run the command without arguments. If you will add arguments to the command they will override config settings.
+
+# Usage as a module
+
+Import the main file and you are ready to go. It exposes an async function which takes up to two parameters: settings object and onFound callback (in case you prefer that way instead of using promises directly).
