@@ -22,7 +22,7 @@
     "ms": "^2.1.1",
     "node-notifier": "^5.2.1",
     "ora": "^2.1.0",
-    "x-ray": "^2.3.2"
+    "x-ray": "^2.3.4"
   },
   "devDependencies": {
     "@types/node": "^10.3.3",
